@@ -1,6 +1,7 @@
 import "./App.css";
-import { useState,useEffect ,useRef  } from "react";
+import { useState, useEffect, useRef, useReducer } from "react";
 import Todos from "./Todos";
+let name ="merlin";
 function App() {
   const carInfo = { name: "Ford", model: "Mustang" };
   const [count, setCount] = useState(0);
@@ -47,16 +48,15 @@ function App() {
   const focusInput = () => {
     inputElement.current.focus();
   };
+
   const [counter, setCounter] = useState(0);
   const [calculation, setCalculation] = useState(2);
   useEffect(() => {
     setTimeout(() => {
       setCounter((counter) => counter + 1);
     }, 1000);
-      previousInputValue.current = inputValue;
-    }, [inputValue]);
-
-    
+    previousInputValue.current = inputValue;
+  }, [inputValue]);
 
   useEffect(() => {
     setCalculation(() => counter * 2);
@@ -65,16 +65,88 @@ function App() {
     previousInputValue.current = inputValue;
   }, [inputValue]);
 
+  const reducer = (state, action) => {
+    switch (action.type) {
+      case "INCREMENT":
+        return { count: state.count + 1 };
+      case "DECREMENT":
+        return { count: state.count - 1 };
+      default:
+        return state;
+    }
+  };
+
+  // Initial state
+  const initialState = { count: 0 };
+
+  // useReducer hook
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const handleSubmit = (event) => {
+    event.preventDefault();
+  };
   return (
     <div className="App">
-            <input
+
+<nav className="navbar navbar-expand-lg navbar-light bg-light">
+  <div className="container-fluid">
+    <a className="navbar-brand" href="/">Navbar</a>
+    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span className="navbar-toggler-icon"></span>
+    </button>
+    <div className="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+        <li className="nav-item">
+          <a className="nav-link active" aria-current="page" href="/">Home</a>
+        </li>
+        <li className="nav-item">
+          <a className="nav-link" href="/">Link</a>
+        </li>
+        <li className="nav-item dropdown">
+          <a className="nav-link dropdown-toggle" href="/" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Dropdown
+          </a>
+          <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a className="dropdown-item" href="/">Action</a></li>
+            <li><a className="dropdown-item" href="/">Another action</a></li>
+            <li><hr className="dropdown-divider"/></li>
+            <li><a className="dropdown-item" href="/">Something else here</a></li>
+          </ul>
+        </li>
+        <li className="nav-item">
+          <a className="nav-link disabled" href="/" tabindex="-1" aria-disabled="true">Disabled</a>
+        </li>
+      </ul>
+      <form className="d-flex">
+        <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
+        <button className="btn btn-outline-success" type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+</nav> 
+      <nav>
+        <li>Home</li>
+        <li>About</li>
+        <li>Contact</li>
+      </nav>
+      <img src=" alt="/>
+      <div>
+        <h1>Hello {name}</h1>
+        <p>lorem34</p>
+      </div>
+      <div className="blank">hi</div>
+
+      <p>Count: {state.count}</p>
+      <button onClick={() => dispatch({ type: "INCREMENT" })}>Increment</button>
+      <button onClick={() => dispatch({ type: "DECREMENT" })}>Decrement</button>
+      <br></br>
+      <input
         type="text"
         value={inputValue}
         onChange={(e) => setInputValue(e.target.value)}
       />
       <h2>Current Value: {inputValue}</h2>
       <h2>Previous Value: {previousInputValue.current}</h2>
-      
+
       <input type="text" ref={inputElement} />
       <button onClick={focusInput}>Focus Input</button>
 
