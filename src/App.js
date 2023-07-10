@@ -1,6 +1,8 @@
 import "./App.css";
 import { useState, useEffect, useRef, useReducer } from "react";
 import Todos from "./Todos";
+import Navbar from "./components/Navbar";
+import TextForm from "./components/TextForm";
 let name ="merlin";
 function App() {
   const carInfo = { name: "Ford", model: "Mustang" };
@@ -84,45 +86,21 @@ function App() {
   const handleSubmit = (event) => {
     event.preventDefault();
   };
+  const i=5;
   return (
     <div className="App">
+   
 
-<nav className="navbar navbar-expand-lg navbar-light bg-light">
-  <div className="container-fluid">
-    <a className="navbar-brand" href="/">Navbar</a>
-    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span className="navbar-toggler-icon"></span>
-    </button>
-    <div className="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-        <li className="nav-item">
-          <a className="nav-link active" aria-current="page" href="/">Home</a>
-        </li>
-        <li className="nav-item">
-          <a className="nav-link" href="/">Link</a>
-        </li>
-        <li className="nav-item dropdown">
-          <a className="nav-link dropdown-toggle" href="/" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Dropdown
-          </a>
-          <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a className="dropdown-item" href="/">Action</a></li>
-            <li><a className="dropdown-item" href="/">Another action</a></li>
-            <li><hr className="dropdown-divider"/></li>
-            <li><a className="dropdown-item" href="/">Something else here</a></li>
-          </ul>
-        </li>
-        <li className="nav-item">
-          <a className="nav-link disabled" href="/" tabindex="-1" aria-disabled="true">Disabled</a>
-        </li>
-      </ul>
-      <form className="d-flex">
-        <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-        <button className="btn btn-outline-success" type="submit">Search</button>
-      </form>
-    </div>
-  </div>
-</nav> 
+        <div>  
+            <h1>{i == 1 ? 'True!' : 'False!'}</h1>  
+         </div>  
+ 
+<Navbar  aboutText="about"/>
+<div className="container my-3">
+
+<TextForm heading ="Enter the text to analyze"/>
+
+</div>
       <nav>
         <li>Home</li>
         <li>About</li>
