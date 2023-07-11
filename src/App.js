@@ -3,8 +3,39 @@ import { useState, useEffect, useRef, useReducer } from "react";
 import Todos from "./Todos";
 import Navbar from "./components/Navbar";
 import TextForm from "./components/TextForm";
-let name ="merlin";
+import About from "./components/About";
+import Alert from "./components/Alert";
+
+let name = "merlin";
 function App() {
+
+  const [mode, setMode] = useState('light');
+  const [alert, setAlert] = useState(null);
+
+  const showAlert = (message,type)=>{
+    setAlert({
+      msg : message,
+      type : type
+    })
+    setTimeout(()=>{
+      setAlert(null);
+    },3000);
+  }
+  const toggleMode = ()=>{
+    console.log('tres',mode)
+    if(mode ==='dark'){
+      setMode('light');
+      document.body.style.backgroundColor ='black';
+      showAlert("Dark Mode has enables", "success");
+    }
+    else{
+      setMode('dark');
+      document.body.style.backgroundColor ='white';
+      showAlert("Light Mode has enables", "success");
+
+    }
+  }
+  
   const carInfo = { name: "Ford", model: "Mustang" };
   const [count, setCount] = useState(0);
   const [todos, setTodos] = useState(["todo 1", "todo 2"]);
@@ -25,6 +56,8 @@ function App() {
     }
     return <MissedGoal />;
   }
+
+
   const increment = () => {
     setCount((c) => c + 1);
   };
@@ -86,78 +119,89 @@ function App() {
   const handleSubmit = (event) => {
     event.preventDefault();
   };
-  const i=5;
+  const i = 5;
   return (
-    <div className="App">
-   
+    // <div className="App">
+    //   <div>
+    //     <h1>{i == 1 ? "True!" : "False!"}</h1>
+    //   </div>
 
-        <div>  
-            <h1>{i == 1 ? 'True!' : 'False!'}</h1>  
-         </div>  
- 
-<Navbar  aboutText="about"/>
-<div className="container my-3">
+    //   <Navbar aboutText="about" />
+    //   <div className="container my-3">
+    //     <TextForm heading="Enter the text to analyze" />
+    //   </div>
+    //   <div className="mx-5">
+    //     <nav>
+    //       <li>Home</li>
+    //       <li>About</li>
+    //       <li>Contact</li>
+    //     </nav>
+    //     <img src=" alt=" />
+    //     <div>
+    //       <h1>Hello {name}</h1>
+    //       <p>lorem34</p>
+    //     </div>
+    //     <div className="blank">hi</div>
 
-<TextForm heading ="Enter the text to analyze"/>
+    //     <p>Count: {state.count}</p>
+    //     <button onClick={() => dispatch({ type: "INCREMENT" })}>
+    //       Increment
+    //     </button>
+    //     <button onClick={() => dispatch({ type: "DECREMENT" })}>
+    //       Decrement
+    //     </button>
+    //     <br></br>
+    //     <input
+    //       type="text"
+    //       value={inputValue}
+    //       onChange={(e) => setInputValue(e.target.value)}
+    //     />
+    //     <h2>Current Value: {inputValue}</h2>
+    //     <h2>Previous Value: {previousInputValue.current}</h2>
 
-</div>
-      <nav>
-        <li>Home</li>
-        <li>About</li>
-        <li>Contact</li>
-      </nav>
-      <img src=" alt="/>
-      <div>
-        <h1>Hello {name}</h1>
-        <p>lorem34</p>
-      </div>
-      <div className="blank">hi</div>
+    //     <input type="text" ref={inputElement} />
+    //     <button onClick={focusInput}>Focus Input</button>
 
-      <p>Count: {state.count}</p>
-      <button onClick={() => dispatch({ type: "INCREMENT" })}>Increment</button>
-      <button onClick={() => dispatch({ type: "DECREMENT" })}>Decrement</button>
-      <br></br>
-      <input
-        type="text"
-        value={inputValue}
-        onChange={(e) => setInputValue(e.target.value)}
-      />
-      <h2>Current Value: {inputValue}</h2>
-      <h2>Previous Value: {previousInputValue.current}</h2>
+    //     <h1>I've rendered {counter} times!</h1>
+    //     <p>Calculation: {calculation}</p>
+    //     <p>
+    //       It is a {car.color} {car.model} from {car.year}.
+    //     </p>
+    //     <button type="button" onClick={updateColor}>
+    //       Blue
+    //     </button>
 
-      <input type="text" ref={inputElement} />
-      <button onClick={focusInput}>Focus Input</button>
+    //     <Todos todos={todos} />
+    //     <hr />
+    //     <div>
+    //       Count: {count}
+    //       <button onClick={increment}>+</button>
+    //     </div>
+    //     <MyForm />
+    //     <h1 style={{ backgroundColor: "lightblue" }}>Hello World!</h1>
+    //     <h1 style={myStyle}>Who lives in my garage?</h1>
+    //     <Car brand={carInfo} />
+    //     <button onClick={shoot}>Take the shot!</button>
+    //     <Goal isGoal={true} />
+    //     <Garage cars={cars} />
 
-      <h1>I've rendered {counter} times!</h1>
-      <p>Calculation: {calculation}</p>
-      <p>
-        It is a {car.color} {car.model} from {car.year}.
-      </p>
-      <button type="button" onClick={updateColor}>
-        Blue
-      </button>
-
-      <Todos todos={todos} />
-      <hr />
-      <div>
-        Count: {count}
-        <button onClick={increment}>+</button>
-      </div>
-      <MyForm />
-      <h1 style={{ backgroundColor: "lightblue" }}>Hello World!</h1>
-      <h1 style={myStyle}>Who lives in my garage?</h1>
-      <Car brand={carInfo} />
-      <button onClick={shoot}>Take the shot!</button>
-      <Goal isGoal={true} />
-      <Garage cars={cars} />
-
-      <h1>Who lives in my garage?</h1>
-      <ul>
-        {cars.map((car) => (
-          <CarList key={car.id} brand={car.brand} />
-        ))}
-      </ul>
+    //     <h1>Who lives in my garage?</h1>
+    //     <ul>
+    //       {cars.map((car) => (
+    //         <CarList key={car.id} brand={car.brand} />
+    //       ))}
+    //     </ul>
+    //   </div>
+    // </div>
+    <div>
+    <Navbar title="ffd"  mode={mode} toggleMode={toggleMode}/>
+    <Alert alert={alert}/>
+    <About/>
+     <div className="container my-3">
+        <TextForm heading="Enter the text to analyze" />
     </div>
+    </div>
+
   );
 }
 function Car(props) {

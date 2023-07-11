@@ -3,7 +3,9 @@ import PropTypes from "prop-types";
 
 export default function Navbar(props) {
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+    <nav
+      className={`navbar navbar-expand-lg navbar-${props.mode} bg-${props.mode}"`}
+    >
       <div className="container-fluid">
         <a className="navbar-brand" href="/">
           {props.title}
@@ -67,7 +69,7 @@ export default function Navbar(props) {
               <a
                 className="nav-link disabled"
                 href="/"
-                tabindex="-1"
+                tabIndex="-1"
                 aria-disabled="true"
               >
                 Disabled
@@ -81,21 +83,33 @@ export default function Navbar(props) {
               placeholder="Search"
               aria-label="Search"
             />
-            <button className="btn btn-outline-success" type="submit">
+            <button className="btn btn-primary" type="submit">
               Search
             </button>
           </form>
+
+          <div className={`form-check form-switch text-${props.mode === 'light' ? 'dark':'light'}`}>
+            <input onClick={props.toggleMode} 
+              className="form-check-input"
+              type="checkbox"
+              id="flexSwitchCheckDefault"
+            />
+            <label className="form-check-label" htmlFor="flexSwitchCheckDefault">
+              Enable Dark
+            </label>
+          </div>
         </div>
       </div>
     </nav>
   );
 }
 
-Navbar.propTypes = { 
-    title: PropTypes.string.isRequired, aboutText: PropTypes.string.isRequired
+Navbar.propTypes = {
+  title: PropTypes.string.isRequired,
+  aboutText: PropTypes.string.isRequired,
 };
 
-Navbar.defaultProps={
-    title: "merlinBlog", aboutText: "aboutMerlin"
-
-}
+Navbar.defaultProps = {
+  title: "merlinBlog",
+  aboutText: "aboutMerlin",
+};
