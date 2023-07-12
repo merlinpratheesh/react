@@ -5,37 +5,44 @@ import Navbar from "./components/Navbar";
 import TextForm from "./components/TextForm";
 import About from "./components/About";
 import Alert from "./components/Alert";
-
+import { BrowserRouter as Router, Switch,Routes, Route, Link } from "react-router-dom";
 let name = "merlin";
 function App() {
-
-  const [mode, setMode] = useState('light');
+  const [mode, setMode] = useState("light");
   const [alert, setAlert] = useState(null);
 
-  const showAlert = (message,type)=>{
+  const showAlert = (message, type) => {
     setAlert({
-      msg : message,
-      type : type
-    })
-    setTimeout(()=>{
+      msg: message,
+      type: type,
+    });
+    setTimeout(() => {
       setAlert(null);
-    },3000);
-  }
-  const toggleMode = ()=>{
-    console.log('tres',mode)
-    if(mode ==='dark'){
-      setMode('light');
-      document.body.style.backgroundColor ='black';
+    }, 3000);
+  };
+  const toggleMode = () => {
+    console.log("tres", mode);
+    if (mode === "dark") {
+      setMode("light");
+      document.body.style.backgroundColor = "black";
       showAlert("Dark Mode has enables", "success");
-    }
-    else{
-      setMode('dark');
-      document.body.style.backgroundColor ='white';
-      showAlert("Light Mode has enables", "success");
+      document.title = "textUtilities - Dark Mode";
+      // setInterval(()=>{
+      //   document.title ='iNSTALL textUtilities ';
 
+      // },1000);
+      // setInterval(()=>{
+      //   document.title ='textUtilities is amazing Now ';
+
+      // },1500);
+    } else {
+      setMode("dark");
+      document.body.style.backgroundColor = "white";
+      showAlert("Light Mode has enables", "success");
+      document.title = "textUtilities - Light Mode";
     }
-  }
-  
+  };
+
   const carInfo = { name: "Ford", model: "Mustang" };
   const [count, setCount] = useState(0);
   const [todos, setTodos] = useState(["todo 1", "todo 2"]);
@@ -56,7 +63,6 @@ function App() {
     }
     return <MissedGoal />;
   }
-
 
   const increment = () => {
     setCount((c) => c + 1);
@@ -194,14 +200,21 @@ function App() {
     //   </div>
     // </div>
     <div>
-    <Navbar title="ffd"  mode={mode} toggleMode={toggleMode}/>
-    <Alert alert={alert}/>
-    <About/>
-     <div className="container my-3">
-        <TextForm heading="Enter the text to analyze" />
+      <Navbar title="ffd" mode={mode} toggleMode={toggleMode} />
+      <Alert alert={alert} />
+      <div className="container my-3">
+      <Router>
+          <Switch>
+            <Route exact path="/about">
+              <About />
+            </Route>
+            <Route exact path="/">
+              <TextForm showAlert={showAlert} heading="Enter the text to analyze" mode={mode} />
+            </Route>
+          </Switch>
+        </Router>
+      </div>
     </div>
-    </div>
-
   );
 }
 function Car(props) {
