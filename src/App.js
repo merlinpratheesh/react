@@ -5,7 +5,13 @@ import Navbar from "./components/Navbar";
 import TextForm from "./components/TextForm";
 import About from "./components/About";
 import Alert from "./components/Alert";
-import { BrowserRouter as Router, Switch,Routes, Route, Link } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Routes,
+  Route,
+  Link,
+} from "react-router-dom";
 let name = "merlin";
 function App() {
   const [mode, setMode] = useState("light");
@@ -199,22 +205,30 @@ function App() {
     //     </ul>
     //   </div>
     // </div>
+    <Router >
+
     <div>
       <Navbar title="ffd" mode={mode} toggleMode={toggleMode} />
       <Alert alert={alert} />
       <div className="container my-3">
-      <Router>
-          <Switch>
-            <Route exact path="/about">
-              <About />
-            </Route>
-            <Route exact path="/">
-              <TextForm showAlert={showAlert} heading="Enter the text to analyze" mode={mode} />
-            </Route>
-          </Switch>
-        </Router>
+          <Routes>
+            <Route exact path="/about" element={<About />} />
+            <Route
+              exact
+              path="/"
+              element={
+                <TextForm
+                  showAlert={showAlert}
+                  heading="Enter the text to analyze"
+                  mode={mode}
+                />
+              }
+            />
+          </Routes>
       </div>
     </div>
+    </Router>
+
   );
 }
 function Car(props) {
